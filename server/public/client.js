@@ -20,15 +20,34 @@ function getQuotes() {
         console.log("Got data from /quotes", response);
         // The actual data of the response lives in response.data
         response.data
-    })
+    });
+    let quotesFromServer = response.datarenderToDOM(quotesFromServer);
 
-    .catch(error => {
+
+    .catch((error) => {
         console.log(error);
         alert('Something went wrong!')
-    })
+    });
 
     console.log("In getQuotes function");
 }
 
 // call the function
 getQuotes();
+
+function renderToDOM(quotes) {
+    let contentDiv = document.querySelector('#content')
+    contentDiv.innerHTML = "";
+    for (let quote of quotes) {
+        contentDiv.innerHTML += `
+        <p>"${quote.text}" -${quote.author}</p>
+        `
+    }
+    console.log("In renderToDOM");
+}
+// I want to show data on the DOM
+// To show data on the DOM = Render on the DOM
+
+// In index.html, I'll need to create something that has an id
+// Some piece of data needs to be appended to the DOM
+// **** 
