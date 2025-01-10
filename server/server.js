@@ -9,8 +9,13 @@ const port = 5001;
 
 // express static file serving - public is the folder name
 app.use(express.static("server/public"));
+
+// If we're POSTing data, we need to include this boilerplate
+app.use(express.json());
+// JavaScript Object Notation
+// serialization, deserialization
 // (above) method - use (method is a function, but it's associated with something else - like an object.)
-// Start up our server
+// (above) Start up our server
 
 // We need to provide a way to start up the server shown (below)
 // function starts after the () - when server is startup then we're going to call 
@@ -46,6 +51,14 @@ app.get("/quotes", (request, res) => {
   // above - you can choose the specific code to be presented if needed
 
 });
+
+app.post("/quotes", (req, res) => {
+  console.log("Post to /quotes success!");
+
+  res.sendStatus(201);
+ })
+// The route about "/quotes" can be used more than once as long as there
+// is a seperate 
 
 // () => {}
 
