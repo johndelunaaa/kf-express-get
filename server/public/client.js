@@ -1,53 +1,46 @@
-console.log("hello world");
+console.log("Hello World!");
 
-// Axios lives on the client side
-// It allows us to make requests to our server from our client
-
-// button click
-// We can make a request to the backend using a function
-
+// Make a request to the backend using a function
 function getQuotes() {
-    // Function that gets quotes from the server using Axios
-    // We are chaining axios methods here
-    // First we reach out to the endpoint
-    // Then we wait for a response, and we do something
-    // .then handles the successful case, where we got the data
-    // .catch handles the failure case
-
-    axios.get('/quotes')
-
-    .then(response => {
-        console.log("Got data from /quotes", response);
-        // The actual data of the response lives in response.data
-        response.data
-    });
-    let quotesFromServer = response.datarenderToDOM(quotesFromServer);
-
-
-    .catch((error) => {
-        console.log(error);
-        alert('Something went wrong!')
-    });
-
     console.log("In getQuotes function");
+    // Get quotes from the server using Axios
+    // Axios living on the client side
+    // We are chaining axios methods here
+    axios
+        // first we reach out to the endpoint
+        .get("/quotes")
+        // Then we wait for a response, and we do something
+        // .then handles the successful case, where we got data
+        .then((response) => {
+            console.log("got data from /quotes",
+                // The actual data of the response lives in response.data
+            response.data
+        );
+        let quotes = response.data;
+        // Pass the quotes to our render (display) function
+        renderToDOM(quotes);
+        })
+        //.catch handles the failure case
+        .catch((error) => {
+            console.log(error);
+            alert("Something went wrong!");
+        });
 }
 
-// call the function
+// Call the function to get the quotes
 getQuotes();
 
+// Function to actually display quotes on DOM
 function renderToDOM(quotes) {
-    let contentDiv = document.querySelector('#content')
-    contentDiv.innerHTML = "";
-    for (let quote of quotes) {
-        contentDiv.innerHTML += `
-        <p>"${quote.text}" -${quote.author}</p>
-        `
-    }
     console.log("In renderToDOM");
+    // Select the content div
+    let contentDiv = document.querySelector("#content");
+    // Make sure the content is empty initially
+    contentDiv.innerHTML = "";
+    // Loop through each quote in the quotes array
+    for (let quote of quotes) {
+        // Add each quote to the innerHTML using raw HTML, adding on top of the previous ones
+        contentDiv.innerHTML += `
+        <p>"${quote.text}" -${quote.author}</p>`;
+    }
 }
-// I want to show data on the DOM
-// To show data on the DOM = Render on the DOM
-
-// In index.html, I'll need to create something that has an id
-// Some piece of data needs to be appended to the DOM
-// **** 
